@@ -7,7 +7,7 @@ import (
 
 type Store struct {
 	db             *sql.DB
-	UserRepository *UserRepository
+	userRepository *UserRepository
 }
 
 func New(db *sql.DB) *Store {
@@ -17,13 +17,13 @@ func New(db *sql.DB) *Store {
 }
 
 func (s *Store) User() store.UserRepository {
-	if s.UserRepository != nil {
-		return s.UserRepository
+	if s.userRepository != nil {
+		return s.userRepository
 	}
 
-	s.UserRepository = &UserRepository{
-		Store: s,
+	s.userRepository = &UserRepository{
+		store: s,
 	}
 
-	return s.UserRepository
+	return s.userRepository
 }

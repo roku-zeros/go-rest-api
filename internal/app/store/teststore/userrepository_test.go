@@ -2,6 +2,7 @@ package teststore_test
 
 import (
 	"github.com/roku-zeros/go-rest-api/internal/app/model"
+	"github.com/roku-zeros/go-rest-api/internal/app/store"
 	"github.com/roku-zeros/go-rest-api/internal/app/store/teststore"
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -18,7 +19,7 @@ func TestUserRepository_FindByEmail(t *testing.T) {
 	s := teststore.New()
 	email := "user@example.org"
 	_, err := s.User().FindByEmail(email)
-	assert.Error(t, err)
+	assert.EqualError(t, err, store.ErrRecordNotFound.Error())
 
 	u := model.TestUser(t)
 	u.Email = email
